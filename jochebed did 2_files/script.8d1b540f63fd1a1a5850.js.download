@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standing for Christ Army - Elubo</title>
+    <style>
+        :root {
+            --gold-primary: #f39c12;
+            --gold-light: #f1c40f;
+            --gold-bg: #fffde7;
+            --dark-army: #1c2833;
+            --white-card: rgba(255, 255, 255, 0.96);
+            --text-main: #2c3e50;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.6;
+            
+            /* Yellow tint overlay mixed with fading Jesus on the cross image */
+            background-image: linear-gradient(rgba(255, 253, 231, 0.88), rgba(255, 253, 231, 0.92)), 
+                              url('https://png.pngtree.com/background/20250105/original/pngtree-silhouette-of-jesus-on-the-cross-against-mountain-sunset-background-picture-image_15766513.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            padding: 40px 20px;
+        }
+
+        .main-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Header & Church Branding */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            background: var(--dark-army);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border-bottom: 5px solid var(--gold-primary);
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        /* Scripture Quote Section */
+        .scripture-box {
+            background: #fff8e1;
+            border-left: 5px solid var(--gold-primary);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .scripture-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #795548;
+            font-style: italic;
+        }
+
+        .scripture-ref {
+            display: block;
+            margin-top: 8px;
+            font-weight: bold;
+            color: var(--dark-army);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* General Card/Section Layout */
+        .card {
+            background: var(--white-card);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+            border: 1px solid rgba(241, 196, 15, 0.3);
+        }
+
+        .card h2 {
+            color: var(--dark-army);
+            border-bottom: 3px solid var(--gold-primary);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Pastor Info Profile styling */
+        .pastor-profile {
+            background: linear-gradient(135deg, var(--dark-army), #2c3e50);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .pastor-profile h3 {
+            color: var(--gold-light);
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .location-tag {
+            background: var(--gold-primary);
+            color: var(--dark-army);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        /* Interactive Tabs/Buttons Navigation for Actions */
+        .tab-menu {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .tab-btn.active {
+            background-color: var(--gold-primary);
+            color: var(--dark-army);
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
+        }
+
+        .tab-btn.inactive {
+            background-color: var(--dark-army);
+            color: white;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        /* Form Controls */
+        .form-section {
+            display: none; /* Controlled via script switcher */
+        }
+
+        .form-section.visible {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--dark-army);
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+        }
+
+        .submit-btn {
+            background: var(--dark-army);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: var(--gold-primary);
+            color: var(--dark-army);
+        }
+
+        /* Divine Manifestations List Styling */
+        .manifestation-list {
+            list-style: none;
+        }
+
+        .manifestation-list li {
+            padding: 12px 15px 12px 40px;
+            position: relative;
+            border-bottom: 1px dashed #f1c40f;
+            font-size: 1.05rem;
+        }
+
+        .manifestation-list li:last-child {
+            border-bottom: none;
+        }
+
+        .manifestation-list li::before {
+            content: "🔥";
+            position: absolute;
+            left: 10px;
+            top: 12px;
+            font-size: 1.1rem;
+        }
+
+        /* Animation keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .tab-menu {
+                flex-direction: column;
+            }
+            header h1 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-wrapper">
+
+        <!-- Banner Header -->
+        <header>
+            <h1>Standing for Christ Army</h1>
+            <p>Fighting the Good Fight of Faith</p>
+        </header>
+
+        <!-- Scripture Banner Piece -->
+        <div class="scripture-box">
+            <span class="scripture-text">"Beloved, I pray that you may prosper in all things and be in health, just as your soul prospers."</span>
+            <span class="scripture-ref">John 3:2</span>
+        </div>
+
+        <!-- Leader Showcase -->
+        <div class="card">
+            <h2>Head Pastor & Shepherd</h2>
+            <div class="pastor-profile">
+                <h3>Pastor Gifty Ofori Okyere</h3>
+                <p>Anointed Woman of God leading the army into complete victory.</p>
+                <span class="location-tag">📍 Elubo, Ghana</span>
+            </div>
+        </div>
+
+        <!-- Divine Miracles / God's Matrix List Section -->
+        <div class="card">
+            <h2>What God Can Do For You</h2>
+            <p style="margin-bottom: 15px; font-weight: 500;">Through His anointed handmaiden, Pastor Gifty Ofori Okyere, the Lord almighty stands ready to change your story:</p>
+            <ul class="manifestation-list">
+                <li><strong>Breaking Generational Curses:</strong> Utter destruction of foundational altars dragging families backward.</li>
+                <li><strong>Divine Healing & Wholeness:</strong> Deliverance from terminal diseases, chronic body pains, and demonic afflictions.</li>
+                <li><strong>Financial Doors & Supernatural Prosperity:</strong> Sudden miraculous restoration of lost business glory, jobs, and financial elevation.</li>
+                <li><strong>Prophetic Guidance & Spiritual Directions:</strong> Sharp, uncompromising prophetic foresight that clears confusion and paths paths forward.</li>
+                <li><strong>Fruit of the Womb & Marital Settlements:</strong> Miraculous breakthroughs for delayed marriages and children.</li>
+            </ul>
+        </div>
+
+        <!-- Interaction Hub Section with Dynamic Tabs -->
+        <div class="card">
+            <h2>Connect with the Altar</h2>
+            
+            <!-- Navigation Action Tabs -->
+            <div class="tab-menu">
+                <button class="tab-btn active" id="tabProblemBtn" onclick="switchTab('problem')">⚠️ Share a Problem</button>
+                <button class="tab-btn inactive" id="tabQuestionBtn" onclick="switchTab('question')">❓ Ask a Question</button>
+            </div>
+
+            <!-- Problem Submission Panel Layout -->
+            <div id="problemSection" class="form-section visible">
+                <form onsubmit="handleFormSubmit(event, 'Problem')">
+                    <div class="form-group">
+                        <label for="probName">Your Full Name</label>
+                        <input type="text" id="probName" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="probPhone">Phone Number / WhatsApp</label>
+                        <input type="tel" id="probPhone" required placeholder="Enter active phone contact">
+                    </div>
+                    <div class="form-group">
+                        <label for="probDetails">Explain what you are going through (Confidential)</label>
+                        <textarea id="probDetails" rows="5" required placeholder="Write down the battles or problems you need Pastor Gifty to pray over..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Problem for Prayers</button>
+                </form>
+            </div>
+
+            <!-- Questions Panel Layout -->
+            <div id="questionSection" class="form-section">
+                <form onsubmit="handleFormSubmit(event, 'Question')">
+                    <div class="form-group">
+                        <label for="quesName">Your Full Name</label>
+                        <input type="text" id="quesName" required placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="quesEmail">Email or Phone Number</label>
+                        <input type="text" id="quesEmail" required placeholder="Where should we send the answer?">
+                    </div>
+                    <div class="form-group">
+                        <label for="quesText">What is your question about our services or church?</label>
+                        <textarea id="quesText" rows="4" required placeholder="Type your query here..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send My Question</button>
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Script Handling Tab Shifts & Form Execution -->
+    <script>
+        function switchTab(targetTab) {
+            const problemSection = document.getElementById('problemSection');
+            const questionSection = document.getElementById('questionSection');
+            const problemBtn = document.getElementById('tabProblemBtn');
+            const questionBtn = document.getElementById('tabQuestionBtn');
+
+            if (targetTab === 'problem') {
+                problemSection.classList.add('visible');
+                questionSection.classList.remove('visible');
+                
+                problemBtn.className = 'tab-btn active';
+                questionBtn.className = 'tab-btn inactive';
+            } else {
+                questionSection.classList.add('visible');
+                problemSection.classList.remove('visible');
+                
+                questionBtn.className = 'tab-btn active';
+                problemBtn.className = 'tab-btn inactive';
+            }
+        }
+
+        function handleFormSubmit(event, type) {
+            event.preventDefault();
+            
+            // Temporary alert for demo purposes
+            alert(`Thank you! Your ${type} has been securely submitted to Standing for Christ Army, Elubo. Pastor Gifty Ofori Okyere will join you in prayers!`);
+            
+            // Resets form inputs perfectly
+            event.target.reset();
+        }
+    </script>
+
+</body>
+</html>
